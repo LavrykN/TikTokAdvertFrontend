@@ -1,0 +1,131 @@
+<div id="typographyBlockquotes" class="layout-spacing pb-2" *ngIf="checkAccount">
+  <div class="statbox widget box box-shadow">
+    <div class="widget-header">
+      <div class="row">
+        <div class="col-xl-12 col-md-12 col-sm-12 col-12">
+          <h4> Добавление аккаунта</h4>
+        </div>
+      </div>
+    </div>
+    <div class="widget-content widget-content-area">
+      <div class="row">
+        <div class="col-xl-9 mx-auto">
+          <blockquote class="blockquote">
+            <p class="d-inline">Для размещение твоего аккаунта тебе нужно минимум <code>500</code> подписчиков. Для того что-бы мы могли удостоверится что это твой аккаунт тебе нужно добавить в описание следующий текст <code>{{ wordCheck }}</code> который после проверки ты можешь удалить.</p>
+          </blockquote>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-lg-6 col-12 mx-auto">
+          <form [formGroup]="form" (ngSubmit)="submit()">
+            <div class="form-group">
+              <p>Ниже впиши никнейм своего аккаунта</p>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon7">@</span>
+                </div>
+                <input id="username" type="text" name="txt" placeholder="nameYouAccount" class="form-control" aria-describedby="basic-addon3" formControlName="username">
+              </div>
+              <div *ngIf="form.get('username').touched && form.get('username').invalid">
+                <div class="invalid-feedback" style="display: block" *ngIf="form.get('username').errors.required">Поле не может быть пустым</div>
+              </div>
+
+              <button class="mt-3 btn btn-primary" [disabled]="form.invalid">Проверить мой аккаунт</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="layout-spacing" *ngIf="showOtherFields">
+  <div class="statbox widget box box-shadow">
+    <div class="widget-header">
+      <div class="row">
+        <div class="col-xl-12 col-md-12 col-sm-12 col-12">
+          <h4> Добавление аккаунта</h4>
+        </div>
+      </div>
+    </div>
+    <div class="widget-content widget-content-area">
+      <div class="row">
+        <div class="col-xl-9 mx-auto">
+          <blockquote class="blockquote" style="border-left: 2px solid #35bb24;">
+            <p class="d-inline">Супер! Мы проверили твой аккаунт, осталось заполнить пару строк.</p>
+          </blockquote>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-lg-6 col-12 mx-auto">
+          <form [formGroup]="formOtherFields" (ngSubmit)="create()" autocomplete="off">
+            <div class="form-group">
+              <p>Цена от в &#8381;</p>
+              <input id="price" type="number" [min]="0" max="9999999" name="txt" placeholder="2500" class="form-control" formControlName="price">
+              <div *ngIf="formOtherFields.get('price').touched && formOtherFields.get('price').invalid">
+                <div class="invalid-feedback" style="display: block" *ngIf="formOtherFields.get('price').errors.required">Поле не может быть пустым</div>
+                <div class="invalid-feedback" style="display: block" *ngIf="formOtherFields['controls']['price'].errors?.min">Минимальное значение должно быть больше 0</div>
+                <div class="invalid-feedback" style="display: block" *ngIf="formOtherFields['controls']['price'].errors?.max">Максимум 9 999 999</div>
+              </div>
+
+              <p class="mt-2">Маленькое описание</p>
+              <textarea id="description" type="text" name="txt" placeholder="Напиши немного о себе..." rows="4" class="form-control" formControlName="description"></textarea>
+              <div *ngIf="formOtherFields.get('description').touched && formOtherFields.get('description').invalid">
+                <div class="invalid-feedback" style="display: block" *ngIf="formOtherFields.get('description').errors.required">Поле не может быть пустым</div>
+                <div class="invalid-feedback" style="display: block" *ngIf="formOtherFields.controls['description'].hasError('maxlength')">Слишком много текста</div>
+              </div>
+
+              <p class="mt-2">Выбери тематику которая подходит к твоему аккаунту</p>
+              <ng-select [multiple]="true" [(ngModel)]="selectedCategories" [maxSelectedItems]="3" formControlName="theme">
+                <ng-option *ngFor="let category of categories" [value]="category.value" [disabled]="category.disabled" >{{category.label}}</ng-option>
+              </ng-select>
+              <div *ngIf="formOtherFields.get('theme').touched && formOtherFields.get('theme').invalid">
+                <div class="invalid-feedback" style="display: block" *ngIf="formOtherFields.get('theme').errors.required">Поле не может быть пустым</div>
+              </div>
+
+              <p class="mt-2">Укажи свой инстаграм для связи</p>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">@</span>
+                </div>
+                <input id="contact" type="text" name="txt" placeholder="instagram" class="form-control" aria-describedby="basic-addon3" formControlName="contact">
+              </div>
+              <div *ngIf="formOtherFields.get('contact').touched && formOtherFields.get('contact').invalid">
+                <div class="invalid-feedback" style="display: block" *ngIf="formOtherFields.get('contact').errors.required">Поле не может быть пустым</div>
+                <div class="invalid-feedback" style="display: block" *ngIf="formOtherFields.controls['contact'].hasError('maxlength')">Что-то тут не так</div>
+              </div>
+              <button class="mt-3 btn btn-primary" [disabled]="formOtherFields.invalid">Cоздать обявление</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="loader" class="text-center mt-2">
+  <div class="spinner-border spinner-border-reverse align-self-center text-primary"></div>
+</div>
+
+<div class="layout-spacing" *ngIf="errorMessage">
+  <div class="statbox widget box box-shadow">
+    <div class="widget-header">
+      <div class="row">
+        <div class="col-xl-12 col-md-12 col-sm-12 col-12">
+          <h4>Ошибка</h4>
+        </div>
+      </div>
+    </div>
+    <div class="widget-content widget-content-area">
+      <div class="row">
+        <div class="col-xl-9 mx-auto">
+          <blockquote class="blockquote" style="border-left: 2px solid #df0e1d;">
+            <p class="d-inline">Что-то пошло не так проверь правильно ли ты все делаешь</p>
+          </blockquote>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

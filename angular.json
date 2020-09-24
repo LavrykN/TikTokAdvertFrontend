@@ -90,7 +90,9 @@
             "styles": [
               "src/styles.css"
             ],
-            "scripts": []
+            "scripts": [
+
+            ]
           }
         },
         "lint": {
@@ -119,6 +121,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "frontTikTok"
+    }
+  },
+  "defaultProject": "frontTikTok",
+  "cli": {
+    "analytics": "39b9f670-29b9-4980-9d9b-488d3d43b85b"
+  }
 }

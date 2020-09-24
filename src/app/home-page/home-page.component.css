@@ -1,0 +1,26 @@
+@import "../../assets/css/pages/faq/faq.css";
+
+@media all and (min-width: 1140px){
+  .img-custom{
+    height: 240px;
+    object-fit:cover;
+  }
+}
+
+@media all and (max-width: 770px){
+  .content-custom{
+    margin: 0 auto;
+  }
+}
+
+.btn:hover{
+  transform: none;
+}
+.faq .faq-layouting .fq-tab-section .accordion .card{
+  cursor: auto;
+}
+
+.card-header{
+  cursor: pointer;
+}
+

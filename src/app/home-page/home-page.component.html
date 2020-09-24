@@ -1,0 +1,104 @@
+<div class="faq">
+  <div class="faq-layouting layout-spacing pb-0">
+
+    <a [routerLink]="[ {outlets: { modal: 'login' } } ]">Login</a>
+
+    <router-outlet name="modal"></router-outlet>
+
+    <div class="fq-tab-section mb-4">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="accordion" id="accordionExample">
+            <div class="card mb-0">
+              <div class="card-header" id="fqheadingOne">
+                <div class="mb-0" data-toggle="collapse" role="navigation" data-target="#fqcollapseOne" aria-expanded="false" aria-controls="fqcollapseOne">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-code">
+                    <polyline points="16 18 22 12 16 6"></polyline>
+                    <polyline points="8 6 2 12 8 18"></polyline>
+                  </svg>
+                  <span class="faq-q-title">Фильтр</span>
+                </div>
+              </div>
+              <div id="fqcollapseOne" class="collapse" aria-labelledby="fqheadingOne" data-parent="#accordionExample">
+                <div class="card-body">
+                  <form [formGroup]="formFilter" (ngSubmit)="filter()" autocomplete="off">
+                  <div class="container">
+                    <div class="row">
+                        <div class="custom-slider col-md-6 col-12">
+                          <p class="mt-2">Цена</p>
+                          <ng5-slider [(value)]="minValuePrice" [(highValue)]="maxValuePrice" [options]="optionsPrice" formControlName="price"></ng5-slider>
+                        </div>
+                        <div class="custom-slider col-md-6 col-12">
+                          <p class="mt-2">Подписчики</p>
+                          <ng5-slider [(value)]="minValueFans" [(highValue)]="maxValueFans" [options]="optionsFans" formControlName="fans"></ng5-slider>
+                        </div>
+                        <div class="custom-slider col-md-6 col-12">
+                          <p class="mt-2">Лайки</p>
+                          <ng5-slider [(value)]="minValueHearts" [(highValue)]="maxValueHearts" [options]="optionsHearts" formControlName="hearts"></ng5-slider>
+                        </div>
+                        <div class="custom-slider col-md-6 col-12 pt-3">
+                          <p class="mt-2">Категория</p>
+                          <ng-select [items]="categories" [searchable]="false" style="z-index: 50" formControlName="category"></ng-select>
+                        </div>
+                        <div class="col-md-6 col-12 pt-3 m-auto text-center">
+                          <button type="submit" class="btn btn-primary mb-4 mr-2 m-auto">Фильтр</button>
+                          <button type="button" class="btn btn-warning ml-sm-5 ml-3  mt-0 mt-sm-0" (click)="reset()">Сброс</button>
+                        </div>
+                    </div>
+                  </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="fq-article-section mb-0">
+        <div class="row mb-0" infinite-scroll
+             [infiniteScrollDistance]="0.5"
+             [infiniteScrollThrottle]="50"
+             [scrollWindow]="stopScroll"
+             (scrolled)="onScroll()">
+
+          <div class="col-12 col-lg-3 col-md-6 mb-lg-0 mb-4 mb-lg-4 content-custom" *ngFor="let account of accounts">
+            <div class="card">
+              <img src="{{ account.accountInfo.urlImage }}" class="card-img-top img-custom" alt="faq-video-tutorials">
+              <div class="card-body">
+                <h5 class="card-title">{{ account.accountInfo.username}}</h5>
+                <p class="card-text">{{ (account.description.length > 40) ? (account.description | slice:0:40) + '..' : (account.description) }}</p>
+                <p class="meta-text"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                  {{ account.date | date:'MMM d, y'}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+
+    <div *ngIf="!stopScroll" class="text-center mt-2">
+      <h5>На этом сегодня все 😊</h5>
+    </div>
+
+    <div class="layout-spacing" *ngIf="filterError">
+      <div class="statbox widget box box-shadow">
+        <div class="widget-header">
+          <div class="row">
+            <div class="col-xl-12 col-md-12 col-sm-12 col-12">
+              <h4>Ошибка</h4>
+            </div>
+          </div>
+        </div>
+        <div class="widget-content widget-content-area">
+          <div class="row">
+            <div class="col-xl-9 mx-auto">
+              <blockquote class="blockquote" style="border-left: 2px solid #df0e1d;">
+                <p class="d-inline">Мы ничего не нашли. Попробуй поменять фильтер.</p>
+              </blockquote>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
